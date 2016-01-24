@@ -11,7 +11,10 @@ namespace Utils
         public static void ExecuteAsParallel(this IEnumerable<Action> actions)
         {
             System.Threading.CancellationToken cts = default(System.Threading.CancellationToken);
-            Parallel.ForEach<Action>(actions, new ParallelOptions() { CancellationToken = cts }, a => a.Invoke());
+            Parallel.ForEach<Action>(actions, new ParallelOptions() { CancellationToken = cts }, a =>
+            {
+                a.Invoke();
+            });
         }
 
         public static void ExecuteAsSerial(this IEnumerable<Action> actions)
