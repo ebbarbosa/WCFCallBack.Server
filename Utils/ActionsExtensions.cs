@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,11 +11,21 @@ namespace Utils
     {
         public static void ExecuteAsParallel(this IEnumerable<Action> actions)
         {
+            var _exceptions = new ConcurrentQueue<Exception>();
+
             System.Threading.CancellationToken cts = default(System.Threading.CancellationToken);
-            Parallel.ForEach<Action>(actions, new ParallelOptions() { CancellationToken = cts }, a =>
+            try
             {
-                a.Invoke();
-            });
+                Parallel.ForEach<Action>(actions, new ParallelOptions() { CancellationToken = cts }, a =>
+                                a.Invoke());
+            }
+            catch (AggregateException agex)
+            {
+                agex.InnerExceptions.ToList().ForEach(_exceptions.Enqueue);
+            }
+
+            if (_exceptions.Any())
+                throw new ApplicationException(string.Format("Error: {0}", string.Join("\r\nError: ", _exceptions.Select(e => e.Message))));
         }
 
         public static void ExecuteAsSerial(this IEnumerable<Action> actions)

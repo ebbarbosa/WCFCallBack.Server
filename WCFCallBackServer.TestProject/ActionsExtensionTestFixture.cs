@@ -11,7 +11,7 @@ namespace WCFCallBackServer.TestProject
     [TestClass]
     public class ActionsExtensionTestFixture
     {
-        private IEnumerable<Action> actions;
+        private List<Action> actions;
         private int _expected = 1;
         private int _var1actual;
 
@@ -22,7 +22,7 @@ namespace WCFCallBackServer.TestProject
             {
                 ()=> { _var1actual= GetSomeValueToVar1(); },
                 ()=> NewMethod(2000),
-                ()=> NewMethod(5500),
+                ()=> NewMethod(2500),
             };
         }
 
@@ -41,7 +41,7 @@ namespace WCFCallBackServer.TestProject
 
             actions.ExecuteAsParallel();
 
-            timer.Elapsed.TotalMilliseconds.Should().Be.LessThanOrEqualTo(5509);
+            timer.Elapsed.TotalMilliseconds.Should().Be.LessThanOrEqualTo(2600);
 
             _var1actual.Should().Be.EqualTo(_expected);
         }
@@ -55,7 +55,7 @@ namespace WCFCallBackServer.TestProject
 
             actions.ExecuteAsSerial();
 
-            timer.Elapsed.TotalMilliseconds.Should().Be.GreaterThanOrEqualTo(5500);
+            timer.Elapsed.TotalMilliseconds.Should().Be.GreaterThanOrEqualTo(4500);
 
             _var1actual.Should().Be.EqualTo(_expected);
         }
@@ -63,6 +63,28 @@ namespace WCFCallBackServer.TestProject
         private int GetSomeValueToVar1()
         {
             return _expected;
+        }
+
+        [TestMethod()]
+        public void x_Execute_as_parallel_with_error()
+        {
+            _var1actual = 0;
+            actions.Add(() => { Thread.Sleep(1); throw new NotImplementedException("Test Error 1"); });
+            actions.Add(() => { Thread.Sleep(2200); throw new NotImplementedException("Test Error 2"); });
+            actions.Add(() => { Thread.Sleep(2800); throw new NotImplementedException("Test Error 3"); });
+
+            try
+            {
+                actions.ExecuteAsParallel();
+            }
+            catch (ApplicationException aex)
+            {
+                _var1actual.Should().Be.EqualTo(_expected);
+                aex.Message.Should().Contain("Error: Test Error 1");
+                aex.Message.Should().Contain("Error: Test Error 2");
+                aex.Message.Should().Contain("Error: Test Error 3");
+            }
+
         }
     }
 }
