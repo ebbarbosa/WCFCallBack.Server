@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.24720.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WCFCallBack.Server", "WCFCallBack\WCFCallBack.Server.csproj", "{EC22552E-4DEE-4343-A992-A09E2AE9E439}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Utils", "Utils\Utils.csproj", "{2D6A6926-19CA-4EDD-BCBF-77829401AA6F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WCFCallBackServer.TestProject", "WCFCallBackServer.TestProject\WCFCallBackServer.TestProject.csproj", "{318CBB23-6C95-45E3-B48B-B8B5C6164D05}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{EC22552E-4DEE-4343-A992-A09E2AE9E439}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EC22552E-4DEE-4343-A992-A09E2AE9E439}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EC22552E-4DEE-4343-A992-A09E2AE9E439}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EC22552E-4DEE-4343-A992-A09E2AE9E439}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2D6A6926-19CA-4EDD-BCBF-77829401AA6F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2D6A6926-19CA-4EDD-BCBF-77829401AA6F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2D6A6926-19CA-4EDD-BCBF-77829401AA6F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2D6A6926-19CA-4EDD-BCBF-77829401AA6F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{318CBB23-6C95-45E3-B48B-B8B5C6164D05}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{318CBB23-6C95-45E3-B48B-B8B5C6164D05}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{318CBB23-6C95-45E3-B48B-B8B5C6164D05}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{318CBB23-6C95-45E3-B48B-B8B5C6164D05}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
