@@ -1,5 +1,8 @@
-﻿using System.ServiceModel;
+﻿using System;
+using System.Collections.Generic;
+using System.ServiceModel;
 using System.Threading;
+using Utils;
 
 namespace WCFCallBack
 {
@@ -22,17 +25,38 @@ namespace WCFCallBack
             while (inteiro <= 100)
             {
                 //faz alguma coisa demorada
-                _retorno = new Retorno { Mensagem = string.Format("Chamada numero {0}", inteiro) };
 
-                Thread.Sleep(20);
 
-                //retorna o callback
-                _retornoServico.RetornouServico(_retorno);
+                var actions = new List<Action>
+                {
+                    () =>
+                    {
+                        RetornaValores( inteiro/2 ,  inteiro/3);
+                    },
+                    () =>
+                    {
+                        RetornaValores(inteiro/4, inteiro/5);
+                    }
+                };
+
+                actions.ExecuteAsParallel();
+
+                Thread.Sleep(50);
 
                 inteiro++;
             }
 
             _retornoServico.RetornouServico(new Retorno { Mensagem = "Fim da Execucao" });
+        }
+
+        private void RetornaValores(decimal var1, decimal var2)
+        {
+            _retorno = new Retorno
+            {
+                Mensagem = string.Format("Chamada numero {0} - thr{1} - var {2} var {3}", inteiro, Thread.CurrentThread.ManagedThreadId, var1, var2)
+            };
+            //retorna o callback
+            _retornoServico.RetornouServico(_retorno);
         }
     }
 }
