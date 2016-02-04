@@ -10,7 +10,7 @@ namespace WCFCallBack
     {
         IRetornoServico _retornoServico;
         Retorno _retorno;
-        int inteiro;
+        int inteiro = 1;
 
         public Servico()
         {
@@ -19,13 +19,20 @@ namespace WCFCallBack
 
         public void IniciaServico()
         {
-            //faz alguma coisa demorada
-            _retorno = new Retorno { Numero = inteiro++, Nome = "Call" };
+            while (inteiro <= 100)
+            {
+                //faz alguma coisa demorada
+                _retorno = new Retorno { Mensagem = string.Format("Chamada numero {0}", inteiro) };
 
-            Thread.Sleep(500);
+                Thread.Sleep(20);
 
-            //retorna o callback
-            _retornoServico.RetornouServico(_retorno);
+                //retorna o callback
+                _retornoServico.RetornouServico(_retorno);
+
+                inteiro++;
+            }
+
+            _retornoServico.RetornouServico(new Retorno { Mensagem = "Fim da Execucao" });
         }
     }
 }

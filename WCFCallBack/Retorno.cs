@@ -2,7 +2,6 @@
 {
     public class Retorno
     {
-        public long Numero { get; set; }
-        public string Nome { get; set; }
+        public string Mensagem { get; set; }
     }
 }
