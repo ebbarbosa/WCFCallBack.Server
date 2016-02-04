@@ -31,11 +31,15 @@ namespace WCFCallBack
                 {
                     () =>
                     {
-                        RetornaValores( inteiro/2 ,  inteiro/3);
+                        RetornaValores(inteiro/2, inteiro/3);
                     },
                     () =>
                     {
                         RetornaValores(inteiro/4, inteiro/5);
+                    },
+                    () =>
+                    {
+                        RetornaValores(inteiro/7, inteiro/13);
                     }
                 };
 
